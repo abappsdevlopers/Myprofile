@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Prod - Official Links</title>
+    <!-- خط كايرو لدعم اللغة العربية بشكل عصري -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <!-- مكتبة FontAwesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* الإعدادات الأساسية */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* حاوية التطبيق (التصميم المتجاوب) */
+        .app-container {
+            width: 100%;
+            max-width: 420px; /* يحافظ على حجم شاشة الهاتف عند الفتح من الكمبيوتر */
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 35px;
+            padding: 40px 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.15); /* إطار ذهبي خفيف */
+            margin: 20px; /* مسافة أمان للأجهزة المكتبية */
+        }
+
+        /* قسم الصورة الشخصية */
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #FFD700; /* لون ذهبي */
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-name {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #FFD700;
+        }
+
+        .profile-bio {
+            margin: 5px 0 30px;
+            font-size: 0.95rem;
+            color: #b3b3b3;
+        }
+
+        /* قسم الأزرار والروابط */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #252525;
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .link-btn i {
+            position: absolute;
+            right: 20px; /* الأيقونة على اليمين */
+            font-size: 1.3rem;
+        }
+
+        /* تأثيرات التحويم (Hover) */
+        .link-btn:hover {
+            background: #FFD700;
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* صف أيقونات السوشيال ميديا الصغير في الأسفل */
+        .social-row {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-row a {
+            color: #888;
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-row a:hover {
+            color: #FFD700;
+            transform: translateY(-3px);
+        }
+        
+        /* علامة مائية للمطور */
+        .dev-badge {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- الصورة والمعلومات الشخصية -->
+        <!-- استبدل الرابط أدناه برابط صورتك الشخصية -->
+        <img src="img.png" alt="Gold Prod" class="profile-img">
+        <h1 class="profile-name">Gold Prod</h1>
+        <p class="profile-bio">Music Producer & Rap Artist | 🇩🇿</p>
+
+        <!-- أزرار الروابط الأساسية -->
+        <div class="links-container">
+            <a href="https://music.youtube.com/@rylo_dz?si=WNkKcQs5PLOqQ9Jq" class="link-btn" target="_blank">
+                <i class="fab fa-youtube"></i> يوتيوب
+            </a>
+            <a href="https://www.instagram.com/@rylo.rap.dz" class="link-btn" target="_blank">
+                <i class="fab fa-instagram"></i> انستغرام
+            </a>
+            <a href="https://open.spotify.com/artist/1RYf8ZTJOmaIz0qU6GxDHY?si=9aH1xU1ARgaZwiMvv3I5hw" class="link-btn" target="_blank">
+                <i class="fab fa-spotify"></i> سبوتيفاي
+            </a>
+            <!-- يمكنك إضافة روابط مشاريعك الأخرى كـ SoundBoost هنا -->
+            <a href="https://soundboost.free.nf/?i=1" class="link-btn" target="_blank">
+                <i class="fas fa-rocket"></i> SoundBoost
+            </a>
+        </div>
+
+        <!-- أيقونات إضافية في الأسفل -->
+        <div class="social-row">
+            <a href="https://www.tiktok.com/@rylo.dz" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://soundcloud.com/gold-rap" target="_blank"><i class="fab fa-soundcloud"></i></a>
+            <a href="facebook.com/profile.php?id=61581110203609" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+        
+        <div class="dev-badge">
+            Developed by Abdeldjallil
+        </div>
+    </div>
+
+</body>
+</html>
