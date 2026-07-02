@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Licensing — GoldProd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-wave"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">GoldProd</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="licensing.html" class="active">Licensing</a>
+        <a href="discography.html">Discography</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="auth-btn" id="authBtn">Log In</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" style="padding:140px 24px 40px;">
+    <h1>Licensing</h1>
+    <p>Choose the right license for your release. Transparent pricing, full rights details.</p>
+  </section>
+
+  <section style="position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px 80px;">
+    <div class="grid-3">
+      <div class="glass-card license-card">
+        <div class="price-tag" id="standardPrice">$29.99</div>
+        <h3>Standard Lease</h3>
+        <p class="license-desc">Perfect for independent releases and mixtapes. Non-exclusive rights with limited distribution.</p>
+        <ul>
+          <li>Non-exclusive license</li>
+          <li>Up to 5,000 units / streams</li>
+          <li>MP3 + WAV file</li>
+          <li>No tag removal</li>
+        </ul>
+        <a href="#" class="btn primary" style="margin-top:16px;display:inline-block;">Get Standard</a>
+      </div>
+
+      <div class="glass-card license-card">
+        <div class="price-tag" id="premiumPrice">$49.99</div>
+        <h3>Premium Lease</h3>
+        <p class="license-desc">For serious artists with wider reach. Higher stream and distribution limits plus trackout stems.</p>
+        <ul>
+          <li>Non-exclusive license</li>
+          <li>Up to 50,000 units / streams</li>
+          <li>MP3 + WAV + Trackout stems</li>
+          <li>Tag removal available</li>
+        </ul>
+        <a href="#" class="btn primary" style="margin-top:16px;display:inline-block;">Get Premium</a>
+      </div>
+
+      <div class="glass-card license-card">
+        <div class="price-tag" id="unlimitedPrice">$99.99</div>
+        <h3>Unlimited Lease</h3>
+        <p class="license-desc">Maximum flexibility. No limits on streams, sales, or distribution. Full stems included.</p>
+        <ul>
+          <li>Non-exclusive license</li>
+          <li>Unlimited units / streams</li>
+          <li>MP3 + WAV + Trackout stems</li>
+          <li>Tag removal included</li>
+        </ul>
+        <a href="#" class="btn primary" style="margin-top:16px;display:inline-block;">Get Unlimited</a>
+      </div>
+    </div>
+
+    <div class="glass-card" style="max-width:720px;margin:40px auto 0;text-align:center;">
+      <div class="price-tag" id="exclusivePrice">$499.99</div>
+      <h2>Exclusive Rights</h2>
+      <p class="license-desc">Full ownership. The beat is removed from the store once sold. Perfect for label releases and major projects.</p>
+      <ul style="text-align:left;max-width:480px;margin:12px auto 0;">
+        <li>Full exclusive ownership</li>
+        <li>Unlimited distribution & streams</li>
+        <li>All file formats + trackouts</li>
+        <li>Beat removed from store</li>
+      </ul>
+      <a href="#" class="btn primary" style="margin-top:16px;display:inline-block;">Buy Exclusive</a>
+    </div>
+  </section>
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+      "firebase/analytics": "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+    }
+  }
+</script>
+
+  <script type="module">
+    import { initAuthUI } from './app.js';
+    initAuthUI();
+    ['priceStandard','pricePremium','priceUnlimited','priceExclusive'].forEach(k => {
+      const v = localStorage.getItem(k);
+      if (!v) return;
+      const el = document.getElementById(k.replace('price','').toLowerCase() + 'Price');
+      if (el) el.textContent = '$' + v;
+    });
+  </script>
+</body>
+</html>

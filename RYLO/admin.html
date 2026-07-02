@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — GoldProd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-wave"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">GoldProd</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="licensing.html">Licensing</a>
+        <a href="discography.html">Discography</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="auth-btn" id="authBtn">Log In</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="toast" class="toast"></div>
+
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <h3>Dashboard</h3>
+      <button class="nav-item active" data-tab="inventory">Inventory</button>
+      <button class="nav-item" data-tab="pricing">Pricing</button>
+      <button class="nav-item" data-tab="inbox">Inbox</button>
+      <button class="nav-item" data-tab="content">Content</button>
+    </aside>
+
+    <main class="admin-panel">
+      <div id="tab-inventory" class="admin-tab active">
+        <h2>Inventory Management</h2>
+        <p style="color:var(--muted);margin-bottom:20px;">Add, edit, or remove beats from the catalog.</p>
+
+        <div class="glass-card" style="margin-bottom:24px;">
+          <h3>Add New Beat</h3>
+          <form id="addBeatForm" novalidate>
+            <div class="form-group">
+              <label for="addTitle">Title</label>
+              <input type="text" id="addTitle" required />
+            </div>
+            <div class="form-group">
+              <label for="addBpm">BPM</label>
+              <input type="number" id="addBpm" required />
+            </div>
+            <div class="form-group">
+              <label for="addKey">Key</label>
+              <input type="text" id="addKey" required />
+            </div>
+            <div class="form-group">
+              <label for="addGenre">Genre</label>
+              <input type="text" id="addGenre" required />
+            </div>
+            <div class="form-group">
+              <label for="addPrice">Price</label>
+              <input type="text" id="addPrice" required />
+            </div>
+            <div class="form-group">
+              <label for="addSrc">Audio URL (optional)</label>
+              <input type="url" id="addSrc" placeholder="https://..." />
+            </div>
+            <button type="submit" class="btn primary">Add Beat</button>
+          </form>
+        </div>
+
+        <div class="glass-card" style="margin-bottom:24px;">
+          <h3>Edit Beat</h3>
+          <form id="editBeatForm" novalidate>
+            <div class="form-group">
+              <label for="editBeatSelect">Select Beat</label>
+              <select id="editBeatSelect" required>
+                <option value="" disabled selected>Select a beat</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editTitle">Title</label>
+              <input type="text" id="editTitle" required />
+            </div>
+            <div class="form-group">
+              <label for="editBpm">BPM</label>
+              <input type="number" id="editBpm" required />
+            </div>
+            <div class="form-group">
+              <label for="editKey">Key</label>
+              <input type="text" id="editKey" required />
+            </div>
+            <div class="form-group">
+              <label for="editGenre">Genre</label>
+              <input type="text" id="editGenre" required />
+            </div>
+            <div class="form-group">
+              <label for="editPrice">Price</label>
+              <input type="text" id="editPrice" required />
+            </div>
+            <button type="submit" class="btn primary">Update Beat</button>
+          </form>
+        </div>
+
+        <div class="glass-card" style="margin-bottom:24px;">
+          <h3>Delete Beat</h3>
+          <div class="form-group">
+            <label for="deleteBeatSelect">Select Beat</label>
+            <select id="deleteBeatSelect" required>
+              <option value="" disabled selected>Select a beat</option>
+            </select>
+          </div>
+          <button class="btn primary" id="deleteBeatBtn" style="margin-top:8px;">Delete Beat</button>
+        </div>
+
+        <div class="glass-card">
+          <h3>Current Inventory</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Title</th><th>BPM</th><th>Key</th><th>Genre</th><th>Price</th></tr>
+              </thead>
+              <tbody id="inventoryList"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-pricing" class="admin-tab">
+        <h2>Pricing Controller</h2>
+        <p style="color:var(--muted);margin-bottom:20px;">Update license prices across the site.</p>
+        <div class="glass-card">
+          <form id="pricingForm" novalidate>
+            <div class="form-group">
+              <label for="priceStandard">Standard Lease</label>
+              <input type="text" id="priceStandard" placeholder="29.99" required />
+            </div>
+            <div class="form-group">
+              <label for="pricePremium">Premium Lease</label>
+              <input type="text" id="pricePremium" placeholder="49.99" required />
+            </div>
+            <div class="form-group">
+              <label for="priceUnlimited">Unlimited Lease</label>
+              <input type="text" id="priceUnlimited" placeholder="99.99" required />
+            </div>
+            <div class="form-group">
+              <label for="priceExclusive">Exclusive Rights</label>
+              <input type="text" id="priceExclusive" placeholder="499.99" required />
+            </div>
+            <button type="submit" class="btn primary">Save Pricing</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="tab-inbox" class="admin-tab">
+        <h2>Inbox</h2>
+        <p style="color:var(--muted);margin-bottom:20px;">Customer inquiries from the contact page.</p>
+        <div class="glass-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Email</th><th>Genre</th><th>Budget</th><th>Message</th></tr>
+              </thead>
+              <tbody id="inboxTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-content" class="admin-tab">
+        <h2>Content Editor</h2>
+        <p style="color:var(--muted);margin-bottom:20px;">Update homepage copy and messaging.</p>
+        <div class="glass-card">
+          <form id="contentForm" novalidate>
+            <div class="form-group">
+              <label for="homeTitle">Homepage Hero Title</label>
+              <textarea id="homeTitle" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="homeSubtitle">Homepage Hero Subtitle</label>
+              <textarea id="homeSubtitle" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn primary">Save Content</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+      "firebase/analytics": "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+    }
+  }
+</script>
+
+  <script type="module">
+    import { initAuthUI, initAdminTabs, initAdminInventory, initAdminPricing, initAdminInbox, initAdminContent } from './app.js';
+    initAuthUI();
+    initAdminTabs();
+    initAdminInventory();
+    initAdminPricing();
+    initAdminInbox();
+    initAdminContent();
+  </script>
+</body>
+</html>

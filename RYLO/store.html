@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store — GoldProd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-wave"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">GoldProd</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="store.html" class="active">Store</a>
+        <a href="licensing.html">Licensing</a>
+        <a href="discography.html">Discography</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="auth-btn" id="authBtn">Log In</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" style="padding:140px 24px 40px;">
+    <h1>Store</h1>
+    <p>Filter and preview every beat in the catalog.</p>
+  </section>
+
+  <section style="position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px 40px;">
+    <div class="filter-row">
+      <div>
+        <label for="filterGenre">Genre</label>
+        <select id="filterGenre">
+          <option value="">All</option>
+          <option value="Trap">Trap</option>
+          <option value="Drill">Drill</option>
+          <option value="Boom Bap">Boom Bap</option>
+          <option value="R&B">R&B</option>
+          <option value="Afrobeat">Afrobeat</option>
+          <option value="Pop">Pop</option>
+        </select>
+      </div>
+      <div>
+        <label for="bpmRange">BPM</label>
+        <input type="range" id="bpmRange" min="60" max="200" value="200" />
+        <span id="bpmVal">200 BPM</span>
+      </div>
+      <div>
+        <label for="filterKey">Key</label>
+        <select id="filterKey">
+          <option value="">All</option>
+          <option value="Am">Am</option>
+          <option value="Cm">Cm</option>
+          <option value="Dm">Dm</option>
+          <option value="Em">Em</option>
+          <option value="Fm">Fm</option>
+          <option value="Gm">Gm</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section style="position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px 80px;">
+    <div class="grid-3" id="storeGrid">
+      <div class="glass-card beat-card" data-genre="Trap" data-bpm="140" data-key="Dm">
+        <div class="beat-cover">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop&q=80" alt="Midnight Trap" />
+          <div class="beat-overlay">
+            <button class="play-beat" data-index="0" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="buy-beat" aria-label="Buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="beat-info">
+          <div class="title">Midnight Trap</div>
+          <div class="meta">Trap • 140 BPM • Dm</div>
+        </div>
+        <div class="beat-actions">
+          <span class="btn" style="flex:none;padding:8px 14px;">$29.99</span>
+          <a href="licensing.html" class="btn primary">Buy License</a>
+        </div>
+      </div>
+
+      <div class="glass-card beat-card" data-genre="Drill" data-bpm="145" data-key="Cm">
+        <div class="beat-cover">
+          <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop&q=80" alt="Dark Drill" />
+          <div class="beat-overlay">
+            <button class="play-beat" data-index="1" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="buy-beat" aria-label="Buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="beat-info">
+          <div class="title">Dark Drill</div>
+          <div class="meta">Drill • 145 BPM • Cm</div>
+        </div>
+        <div class="beat-actions">
+          <span class="btn" style="flex:none;padding:8px 14px;">$34.99</span>
+          <a href="licensing.html" class="btn primary">Buy License</a>
+        </div>
+      </div>
+
+      <div class="glass-card beat-card" data-genre="Boom Bap" data-bpm="92" data-key="Am">
+        <div class="beat-cover">
+          <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop&q=80" alt="Boom Classic" />
+          <div class="beat-overlay">
+            <button class="play-beat" data-index="2" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="buy-beat" aria-label="Buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="beat-info">
+          <div class="title">Boom Classic</div>
+          <div class="meta">Boom Bap • 92 BPM • Am</div>
+        </div>
+        <div class="beat-actions">
+          <span class="btn" style="flex:none;padding:8px 14px;">$24.99</span>
+          <a href="licensing.html" class="btn primary">Buy License</a>
+        </div>
+      </div>
+
+      <div class="glass-card beat-card" data-genre="R&B" data-bpm="110" data-key="Gm">
+        <div class="beat-cover">
+          <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606bf?w=400&h=400&fit=crop&q=80" alt="Smooth Vibe" />
+          <div class="beat-overlay">
+            <button class="play-beat" data-index="3" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="buy-beat" aria-label="Buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="beat-info">
+          <div class="title">Smooth Vibe</div>
+          <div class="meta">R&B • 110 BPM • Gm</div>
+        </div>
+        <div class="beat-actions">
+          <span class="btn" style="flex:none;padding:8px 14px;">$29.99</span>
+          <a href="licensing.html" class="btn primary">Buy License</a>
+        </div>
+      </div>
+
+      <div class="glass-card beat-card" data-genre="Afrobeat" data-bpm="98" data-key="Em">
+        <div class="beat-cover">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop&q=80" alt="Afro Heat" />
+          <div class="beat-overlay">
+            <button class="play-beat" data-index="4" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="buy-beat" aria-label="Buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="beat-info">
+          <div class="title">Afro Heat</div>
+          <div class="meta">Afrobeat • 98 BPM • Em</div>
+        </div>
+        <div class="beat-actions">
+          <span class="btn" style="flex:none;padding:8px 14px;">$34.99</span>
+          <a href="licensing.html" class="btn primary">Buy License</a>
+        </div>
+      </div>
+
+      <div class="glass-card beat-card" data-genre="Pop" data-bpm="120" data-key="Fm">
+        <div class="beat-cover">
+          <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop&q=80" alt="Pop Star" />
+          <div class="beat-overlay">
+            <button class="play-beat" data-index="5" aria-label="Play"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="buy-beat" aria-label="Buy"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="beat-info">
+          <div class="title">Pop Star</div>
+          <div class="meta">Pop • 120 BPM • Fm</div>
+        </div>
+        <div class="beat-actions">
+          <span class="btn" style="flex:none;padding:8px 14px;">$29.99</span>
+          <a href="licensing.html" class="btn primary">Buy License</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="global-player hidden-player" id="globalPlayer">
+    <div class="player-art" id="gpArt"><img src="" alt="Art" /></div>
+    <div class="player-meta">
+      <div class="track-title" id="gpTitle">Select a beat</div>
+      <div class="track-artist" id="gpArtist">GoldProd</div>
+    </div>
+    <div class="player-controls">
+      <button id="gpPrevBtn" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+      <button id="gpPlayBtn" aria-label="Play/Pause"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+      <button id="gpNextBtn" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+    </div>
+    <div class="player-progress">
+      <span id="gpCurrentTime">0:00</span>
+      <input type="range" id="gpProgress" value="0" min="0" max="100" aria-label="Progress" />
+      <span id="gpDuration">0:00</span>
+    </div>
+    <div class="player-volume">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color:var(--muted);flex-shrink:0;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      <input type="range" id="gpVolume" min="0" max="100" value="80" aria-label="Volume" />
+    </div>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+      "firebase/analytics": "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+    }
+  }
+</script>
+
+  <script type="module">
+    import { initAuthUI, initPlayer, playTrack, initStoreFilter } from './app.js';
+    initAuthUI();
+    const beats = [
+      { id:'b1', title:'Midnight Trap', artist:'GoldProd', bpm:140, key:'Dm', genre:'Trap', src:'https://www.soundjay.com/buttons/beep-01a.mp3', art:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&h=100&fit=crop&q=80' },
+      { id:'b2', title:'Dark Drill', artist:'GoldProd', bpm:145, key:'Cm', genre:'Drill', src:'https://www.soundjay.com/buttons/beep-01a.mp3', art:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100&h=100&fit=crop&q=80' },
+      { id:'b3', title:'Boom Classic', artist:'GoldProd', bpm:92, key:'Am', genre:'Boom Bap', src:'https://www.soundjay.com/buttons/beep-01a.mp3', art:'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=100&h=100&fit=crop&q=80' },
+      { id:'b4', title:'Smooth Vibe', artist:'GoldProd', bpm:110, key:'Gm', genre:'R&B', src:'https://www.soundjay.com/buttons/beep-01a.mp3', art:'https://images.unsplash.com/photo-1493225255756-d9584f8606bf?w=100&h=100&fit=crop&q=80' },
+      { id:'b5', title:'Afro Heat', artist:'GoldProd', bpm:98, key:'Em', genre:'Afrobeat', src:'https://www.soundjay.com/buttons/beep-01a.mp3', art:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&h=100&fit=crop&q=80' },
+      { id:'b6', title:'Pop Star', artist:'GoldProd', bpm:120, key:'Fm', genre:'Pop', src:'https://www.soundjay.com/buttons/beep-01a.mp3', art:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100&h=100&fit=crop&q=80' }
+    ];
+    initPlayer(beats);
+    document.querySelectorAll('.play-beat').forEach(btn => {
+      btn.addEventListener('click', () => { const idx = parseInt(btn.dataset.index, 10); playTrack(idx); });
+    });
+    initStoreFilter();
+  </script>
+</body>
+</html>
