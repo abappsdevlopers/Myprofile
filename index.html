@@ -11,7 +11,8 @@
     <meta name="keywords" content="Gold Prod, RYLO, RYLO DZ, Rap DZ, Algerian Rap, Beat Store, Trap Beats, Gold Rap, راب جزائري, بيزات راب, هندسة صوتية, FL Studio الجزائر, Auto-Tune, SoundBoost">
     <meta name="author" content="Gold Prod / Abdeldjallil">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://goldprod.com/">
+    <link rel="canonical" href="https://www.goldprodection.shop/">
+    <meta property="og:url" content="https://www.goldprodection.shop/">
 
     <!-- Open Graph / Facebook / WhatsApp Preview -->
     <meta property="og:type" content="website">
@@ -210,7 +211,41 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* ===== v2 additions ===== */
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+        /* Contrast: رفع وضوح الرمادي فوق الخلفية الداكنة (WCAG AA) */
+        .text-gray-300 { color: #d9d9e0 !important; }
+        .text-gray-400 { color: #bcbcc6 !important; }
+        .text-gray-500 { color: #a6a6b2 !important; }
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #FFD700; outline-offset: 2px; }
+        /* Tooltips */
+        [data-tip] { position: relative; }
+        [data-tip]::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px);
+            background: #000; color: #FFD700; border: 1px solid rgba(255,215,0,.4); font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 8px;
+            white-space: nowrap; opacity: 0; pointer-events: none; transition: .2s; z-index: 30; }
+        [data-tip]:hover::after, [data-tip]:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+        /* Beat list */
+        .beat-row.active { border-color: rgba(255,215,0,.7); background: rgba(255,215,0,.07); }
+        /* Modal */
+        .gp-modal { position: fixed; inset: 0; z-index: 110; background: rgba(0,0,0,.8); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 16px; }
+        .gp-modal.open { display: flex; }
+        .field { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); border-radius: 12px; padding: 10px 12px; font-size: 13px; color: #fff; }
+        .field::placeholder { color: #9a9aa6; }
+        .field:focus { border-color: #FFD700; outline: none; }
+        .svc-chip { cursor: pointer; padding: 9px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); font-size: 12px; font-weight: 700; text-align: center; color: #e5e5ea; transition: .2s; }
+        input:checked + .svc-chip { background: rgba(255,215,0,.14); border-color: #FFD700; color: #FFD700; }
+        /* Newsletter button micro-interaction */
+        .nl-btn { position: relative; overflow: hidden; transition: transform .15s, box-shadow .3s; }
+        .nl-btn:active { transform: scale(.95); }
+        .nl-btn .spin { display: none; width: 16px; height: 16px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: nlspin .7s linear infinite; }
+        .nl-btn.loading .spin { display: inline-block; } .nl-btn.loading .lbl { display: none; }
+        .nl-btn.done { background: #10b981; color: #fff; }
+        @keyframes nlspin { to { transform: rotate(360deg); } }
+        .star { color: #FFD700; }
     </style>
+    <script src="assets/gold-player.js" defer></script>
 </head>
 <body class="flex flex-col justify-between items-center pt-20 pb-12 px-4 relative overflow-x-hidden">
 
@@ -250,6 +285,12 @@
                     <i class="fas fa-trophy text-amber-400 text-sm"></i>
                     <span>الإنجازات</span>
                 </button>
+            <button onclick="switchTab('testimonials'); closeSidebar();" class="flex items-center gap-3 p-3 rounded-xl text-xs font-bold text-gray-200 hover:text-amber-400 hover:bg-amber-400/10 transition-all text-right">
+                    <i class="fas fa-star text-amber-400 text-sm"></i><span>آراء الفنانين</span>
+                </button>
+                <button onclick="openBooking(); closeSidebar();" class="flex items-center gap-3 p-3 rounded-xl text-xs font-bold text-black bg-gradient-to-r from-amber-400 to-yellow-500 mt-2">
+                    <i class="fas fa-calendar-check text-sm"></i><span>حجز خدمة</span>
+                </button>
             </nav>
         </div>
 
@@ -287,6 +328,9 @@
                     <i class="fas fa-trophy text-xs"></i>
                     <span>الإنجازات</span>
                 </button>
+            <button id="nav-testimonials" onclick="switchTab('testimonials')" class="nav-btn px-3 py-1.5 rounded-xl text-xs font-bold transition-all border border-transparent hover:text-amber-400 flex items-center gap-1.5">
+                    <i class="fas fa-star text-xs"></i><span>الآراء</span>
+                </button>
             </nav>
 
             <!-- Sidebar Toggle Button (يظهر على الهواتف والأجهزة الصغيرة) -->
@@ -308,7 +352,7 @@
                     <div class="avatar-glow-ring"></div>
                     <img src="img.png" 
                          onerror="this.src='https://placehold.co/150x150/111/FFD700?text=GOLD+PROD'" 
-                         alt="Gold Prod (RYLO) - Algerian Music Producer" 
+                         alt="Gold Prod (RYLO) - Algerian Music Producer" fetchpriority="high" 
                          class="w-full h-full object-cover rounded-full border-2 border-amber-400/80 shadow-2xl relative z-10">
                 </div>
 
@@ -348,29 +392,22 @@
                 </div>
             </section>
 
-            <!-- Featured Beat Audio Widget -->
-            <section class="w-full mb-5 glass-card p-3.5 rounded-2xl border border-amber-500/20 relative overflow-hidden">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <button id="playBtn" onclick="toggleAudio()" class="w-10 h-10 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-black flex items-center justify-center font-bold shadow-lg shadow-amber-500/20 hover:scale-105 active:scale-95 transition-transform">
-                            <i id="playIcon" class="fas fa-play text-xs"></i>
-                        </button>
-                        <div>
-                            <span class="text-[9px] font-bold tracking-wider text-amber-400 uppercase font-english">Featured Beat Demo</span>
-                            <h3 class="text-xs font-bold text-white leading-tight font-english">GOLD PROD - TRAP BEAT DEMO</h3>
-                        </div>
-                    </div>
-                    <div id="waveVisualizer" class="flex items-center gap-1 paused px-2">
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                        <div class="wave-bar"></div>
-                    </div>
+            <!-- Latest Beats (مرتبطة بالمشغل الثابت) -->
+            <section class="w-full mb-5 glass-card p-3.5 rounded-2xl border border-amber-500/20" aria-label="أحدث البيزات">
+                <div class="flex items-center justify-between mb-2.5">
+                    <span class="text-[10px] font-bold tracking-wider text-amber-400 uppercase font-english">Latest Beats • Demo</span>
+                    <a href="RYLO/index.html" class="text-[11px] text-gray-300 hover:text-amber-400">كل البيزات <i class="fas fa-chevron-left text-[9px]"></i></a>
                 </div>
-                <audio id="beatAudio" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a221f3.mp3?filename=trap-beat-10582.mp3" preload="none"></audio>
+                <div id="beatList" class="flex flex-col gap-2">
+                    <!-- يتم توليدها من مصفوفة BEATS في الأسفل -->
+                </div>
             </section>
 
-            <!-- Main Links List -->
+            <!-- Ads -->
+                <div class="w-full my-4 text-center overflow-hidden">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7816296610267780" data-ad-slot="9459469803" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
+                <!-- Main Links List -->
             <section class="w-full flex flex-col gap-3">
 
                 <!-- Beat Store -->
@@ -390,7 +427,7 @@
                 </a>
 
                 <!-- YouTube Music -->
-                <a href="https://music.youtube.com/@rylo_dz?si=WNkKcQs5PLOqQ9Jq" target="_blank" class="group glass-card gold-border-glow p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300">
+                <a href="https://music.youtube.com/@rylo_dz?si=WNkKcQs5PLOqQ9Jq" target="_blank" rel="noopener" data-tip="افتح على YouTube Music" class="group glass-card gold-border-glow p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300">
                     <div class="flex items-center gap-3.5">
                         <div class="w-10 h-10 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center text-lg border border-red-500/20">
                             <i class="fab fa-youtube"></i>
@@ -406,7 +443,7 @@
                 </a>
 
                 <!-- Spotify -->
-                <a href="https://open.spotify.com/artist/1RYf8ZTJOmaIz0qU6GxDHY?si=9aH1xU1ARgaZwiMvv3I5hw" target="_blank" class="group glass-card gold-border-glow p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300">
+                <a href="https://open.spotify.com/artist/1RYf8ZTJOmaIz0qU6GxDHY?si=9aH1xU1ARgaZwiMvv3I5hw" target="_blank" rel="noopener" data-tip="استمع على Spotify" class="group glass-card gold-border-glow p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300">
                     <div class="flex items-center gap-3.5">
                         <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-lg border border-emerald-500/20">
                             <i class="fab fa-spotify"></i>
@@ -422,7 +459,7 @@
                 </a>
 
                 <!-- Apple Music -->
-                <a href="https://music.apple.com/dz/artist/rylo/1608897527" target="_blank" class="group glass-card gold-border-glow p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300">
+                <a href="https://music.apple.com/dz/artist/rylo/1608897527" target="_blank" rel="noopener" data-tip="استمع على Apple Music" class="group glass-card gold-border-glow p-3.5 rounded-2xl flex items-center justify-between transition-all duration-300">
                     <div class="flex items-center gap-3.5">
                         <div class="w-10 h-10 rounded-xl bg-pink-600/20 text-pink-400 flex items-center justify-center text-lg border border-pink-500/20">
                             <i class='bx bxl-apple'></i>
@@ -469,6 +506,18 @@
                     </span>
                 </a>
 
+                <!-- Booking CTA -->
+                <button type="button" onclick="openBooking()" class="group relative flex items-center justify-between p-3.5 rounded-2xl border border-amber-400/50 bg-amber-400/10 hover:bg-amber-400/20 transition-all text-right w-full">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-amber-400 text-black flex items-center justify-center text-lg"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <h3 class="text-xs font-bold text-white">حجز الخدمات الموسيقية</h3>
+                            <p class="text-[11px] text-gray-300">Beat Custom • Mixing & Mastering • Full Production</p>
+                        </div>
+                    </div>
+                    <span class="text-amber-400 text-xs"><i class="fas fa-chevron-left"></i></span>
+                </button>
+
                 <!-- Ad Banner Anchor -->
                 <div id="container-a0708bfd675990b259942a78572f7e74" class="w-full flex justify-center my-2"></div>
             </section>
@@ -487,7 +536,7 @@
 
                 <!-- Article 1 -->
                 <article class="glass-card gold-border-glow rounded-2xl overflow-hidden flex flex-col">
-                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop" alt="صناعة البيزات والهندسة الصوتية FL Studio" class="w-full h-44 object-cover">
+                    <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop" alt="صناعة البيزات والهندسة الصوتية FL Studio" class="w-full h-44 object-cover">
                     <div class="p-4 flex flex-col">
                         <div class="flex items-center gap-2 mb-2 text-[10px] text-amber-400 font-english font-bold">
                             <span><i class="fas fa-music"></i> Beatmaking</span>
@@ -500,15 +549,19 @@
                         <p class="text-xs text-gray-300 line-clamp-2 leading-relaxed mb-4">
                             تُعتبر موسيقى الـ Drill والـ Trap من أكثر الأنواع انتشاراً في الساحة الجزائرية. تعرف على أهم تقنيات ضبط الـ 808 والميكساج الصحيح لتحقيق قوة الصوت المطلوبة.
                         </p>
-                        <button onclick="openArticleModal('art1')" class="mt-auto self-start px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-bold text-xs transition-all">
+                        <a href="blog/trap-drill-fl-studio.html"" class="mt-auto self-start px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-bold text-xs transition-all">
                             اقرأ المقال بالكامل <i class="fas fa-arrow-left mr-1"></i>
-                        </button>
+                        </a>
                     </div>
                 </article>
 
+                <!-- Ads -->
+                <div class="w-full my-4 text-center overflow-hidden">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7816296610267780" data-ad-slot="9459469803" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
                 <!-- Article 2 -->
                 <article class="glass-card gold-border-glow rounded-2xl overflow-hidden flex flex-col">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop" alt="تقنيات الميكساج والـ Auto-Tune في الراب الجزائري" class="w-full h-44 object-cover">
+                    <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop" alt="تقنيات الميكساج والـ Auto-Tune في الراب الجزائري" class="w-full h-44 object-cover">
                     <div class="p-4 flex flex-col">
                         <div class="flex items-center gap-2 mb-2 text-[10px] text-amber-400 font-english font-bold">
                             <span><i class="fas fa-sliders-h"></i> Mixing & Vocal</span>
@@ -521,9 +574,9 @@
                         <p class="text-xs text-gray-300 line-clamp-2 leading-relaxed mb-4">
                             خطوات عمل معالجة صوتية احترافية للصوت البشري في أغاني الراب، ضبط الأوتوتيون بلمسة طبيعية، والتحكم في الترددات الحادة (EQ & Compression).
                         </p>
-                        <button onclick="openArticleModal('art2')" class="mt-auto self-start px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-bold text-xs transition-all">
+                        <a href="blog/vocal-mixing-waves-tune.html"" class="mt-auto self-start px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-bold text-xs transition-all">
                             اقرأ المقال بالكامل <i class="fas fa-arrow-left mr-1"></i>
-                        </button>
+                        </a>
                     </div>
                 </article>
 
@@ -550,11 +603,15 @@
                 </p>
 
                 <div class="w-full rounded-xl overflow-hidden bg-black/40 border border-white/10 p-1">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/1RYf8ZTJOmaIz0qU6GxDHY?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe loading="lazy" style="border-radius:12px" src="https://open.spotify.com/embed/artist/1RYf8ZTJOmaIz0qU6GxDHY?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </section>
 
-            <!-- Milestones Timeline -->
+            <!-- Ads -->
+                <div class="w-full my-4 text-center overflow-hidden">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7816296610267780" data-ad-slot="9459469803" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
+                <!-- Milestones Timeline -->
             <section class="glass-card p-4 rounded-2xl flex flex-col gap-4">
                 <h3 class="text-sm font-bold text-amber-400 font-english flex items-center gap-2 border-b border-white/10 pb-2">
                     <i class="fas fa-star"></i> مسيرة النجاح والإصدارات
@@ -592,6 +649,86 @@
             </section>
         </div>
 
+        <!-- ==================== TAB 4: TESTIMONIALS & CREDITS ==================== -->
+        <div id="tab-testimonials" class="tab-content w-full">
+            <div class="mb-6 text-center">
+                <span class="text-amber-400 text-xs font-bold uppercase tracking-wider font-english">Testimonials & Credits</span>
+                <h2 class="text-2xl font-black text-white mt-1">آراء الفنانين والتراكات المنتجة</h2>
+                <p class="text-xs text-gray-300 mt-1">ماذا يقول الرابرز الذين عملوا مع Gold Prod</p>
+            </div>
+            <!-- ⚠️ بيانات تجريبية: استبدل الأسماء والصور والاقتباسات والروابط بشهادات حقيقية قبل النشر -->
+            <div class="grid gap-4 sm:grid-cols-1">
+                <article class="glass-card gold-border-glow rounded-2xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://placehold.co/96x96/111/FFD700?text=A1" alt="صورة اسم الفنان 1" width="48" height="48" class="w-12 h-12 rounded-full object-cover border-2 border-amber-400/70">
+                        <div class="min-w-0">
+                            <h3 class="text-sm font-bold text-white truncate">اسم الفنان 1</h3>
+                            <p class="text-[11px] text-gray-300 font-english">اسم التراك • <span class="text-amber-400">Beat: اسم البيت</span></p>
+                        </div>
+                    </div>
+                    <div class="star text-xs mb-2" role="img" aria-label="5 من 5 نجوم"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote class="text-xs text-gray-200 leading-relaxed mb-3">“استبدل هذا النص برأي الفنان الحقيقي حول جودة الهندسة الصوتية والإنتاج.”</blockquote>
+                    <div class="flex items-center gap-4 text-lg text-gray-300 pt-2 border-t border-white/10">
+                        <a href="#" target="_blank" rel="noopener" data-tip="Spotify" class="hover:text-emerald-400 transition-colors" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                        <a href="#" target="_blank" rel="noopener" data-tip="Apple Music" class="hover:text-pink-400 transition-colors" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+                        <a href="#" target="_blank" rel="noopener" data-tip="YouTube Music" class="hover:text-red-500 transition-colors" aria-label="YouTube Music"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </article>
+                <article class="glass-card gold-border-glow rounded-2xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://placehold.co/96x96/111/FFD700?text=A2" alt="صورة اسم الفنان 2" width="48" height="48" class="w-12 h-12 rounded-full object-cover border-2 border-amber-400/70">
+                        <div class="min-w-0">
+                            <h3 class="text-sm font-bold text-white truncate">اسم الفنان 2</h3>
+                            <p class="text-[11px] text-gray-300 font-english">اسم التراك • <span class="text-amber-400">Beat: اسم البيت</span></p>
+                        </div>
+                    </div>
+                    <div class="star text-xs mb-2" role="img" aria-label="5 من 5 نجوم"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote class="text-xs text-gray-200 leading-relaxed mb-3">“استبدل هذا النص برأي الفنان الحقيقي حول جودة الهندسة الصوتية والإنتاج.”</blockquote>
+                    <div class="flex items-center gap-4 text-lg text-gray-300 pt-2 border-t border-white/10">
+                        <a href="#" target="_blank" rel="noopener" data-tip="Spotify" class="hover:text-emerald-400 transition-colors" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                        <a href="#" target="_blank" rel="noopener" data-tip="Apple Music" class="hover:text-pink-400 transition-colors" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+                        <a href="#" target="_blank" rel="noopener" data-tip="YouTube Music" class="hover:text-red-500 transition-colors" aria-label="YouTube Music"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </article>
+                <article class="glass-card gold-border-glow rounded-2xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="https://placehold.co/96x96/111/FFD700?text=A3" alt="صورة اسم الفنان 3" width="48" height="48" class="w-12 h-12 rounded-full object-cover border-2 border-amber-400/70">
+                        <div class="min-w-0">
+                            <h3 class="text-sm font-bold text-white truncate">اسم الفنان 3</h3>
+                            <p class="text-[11px] text-gray-300 font-english">اسم التراك • <span class="text-amber-400">Beat: اسم البيت</span></p>
+                        </div>
+                    </div>
+                    <div class="star text-xs mb-2" role="img" aria-label="5 من 5 نجوم"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <blockquote class="text-xs text-gray-200 leading-relaxed mb-3">“استبدل هذا النص برأي الفنان الحقيقي حول جودة الهندسة الصوتية والإنتاج.”</blockquote>
+                    <div class="flex items-center gap-4 text-lg text-gray-300 pt-2 border-t border-white/10">
+                        <a href="#" target="_blank" rel="noopener" data-tip="Spotify" class="hover:text-emerald-400 transition-colors" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+                        <a href="#" target="_blank" rel="noopener" data-tip="Apple Music" class="hover:text-pink-400 transition-colors" aria-label="Apple Music"><i class="fab fa-apple"></i></a>
+                        <a href="#" target="_blank" rel="noopener" data-tip="YouTube Music" class="hover:text-red-500 transition-colors" aria-label="YouTube Music"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </article>
+            </div>
+            <!-- Ads -->
+                <div class="w-full my-4 text-center overflow-hidden">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7816296610267780" data-ad-slot="9459469803" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
+                <button type="button" onclick="openBooking()" class="mt-5 w-full py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-sm font-bold">ابدأ مشروعك مع Gold Prod</button>
+        </div>
+
+        <!-- ==================== NEWSLETTER (Drop Alerts) ==================== -->
+        <section id="newsletter" class="w-full mt-10 glass-card rounded-3xl p-5 border border-amber-400/30 text-center" aria-labelledby="nlTitle">
+            <span class="text-amber-400 text-[10px] font-bold tracking-widest uppercase font-english">Drop Alerts</span>
+            <h2 id="nlTitle" class="text-lg font-black text-white mt-1 mb-1">لا تفوّت إطلاق البيزات الجديدة والمقالات الحصرية</h2>
+            <p class="text-xs text-gray-300 mb-4">اشترك ليصلك إشعار فور نزول بيت جديد.</p>
+            <form id="nlForm" novalidate class="flex flex-col sm:flex-row gap-2">
+                <label for="nlEmail" class="sr-only">البريد الإلكتروني</label>
+                <input id="nlEmail" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="you@email.com" class="field flex-1 text-left" required>
+                <button id="nlBtn" type="submit" class="nl-btn px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-black text-sm font-bold flex items-center justify-center gap-2">
+                    <span class="spin"></span><span class="lbl"><i class="fas fa-bell ml-1"></i> اشترك</span>
+                </button>
+            </form>
+            <p id="nlMsg" class="text-xs mt-3 min-h-[1.25rem]" role="status" aria-live="polite"></p>
+        </section>
+
         <!-- Footer Section -->
         <footer class="w-full flex flex-col items-center gap-5 pt-6 mt-8 border-t border-white/5">
             <div class="flex items-center justify-center gap-6 text-xl text-gray-400">
@@ -613,12 +750,33 @@
             <!-- Adsterra Banner Embed -->
             <div class="mt-1 opacity-80 hover:opacity-100 transition-opacity">
                 <a href="" rel="nofollow">
-                    <img alt="Gold Prod Partner Banner" src="https://landings-cdn.adsterratech.com/referralBanners/png/160%20x%2090%20px.png" class="rounded-lg shadow-md max-w-[160px] h-auto" />
+                    <img loading="lazy" decoding="async" alt="Gold Prod Partner Banner" src="https://landings-cdn.adsterratech.com/referralBanners/png/160%20x%2090%20px.png" class="rounded-lg shadow-md max-w-[160px] h-auto" />
                 </a>
             </div>
         </footer>
 
     </main>
+
+    <!-- BOOKING MODAL -->
+    <div id="bookingModal" class="gp-modal" role="dialog" aria-modal="true" aria-labelledby="bkTitle" onclick="if(event.target===this)closeBooking()">
+        <div class="glass-card w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl p-5 border border-amber-500/30 relative">
+            <button type="button" onclick="closeBooking()" class="absolute top-3 left-3 w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-amber-400 hover:text-black" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            <span class="text-amber-400 text-[10px] font-bold uppercase tracking-widest font-english">Booking Services</span>
+            <h2 id="bkTitle" class="text-xl font-black text-white mb-4">حجز الخدمات الموسيقية</h2>
+            <form id="bookingForm" class="flex flex-col gap-3" novalidate>
+                <fieldset><legend class="text-xs text-gray-300 mb-2">اختر الخدمة</legend>
+                    <div class="grid grid-cols-2 gap-2"><label class="block"><input type="radio" name="service" value="Beat Custom" class="sr-only" checked><div class="svc-chip font-english">Beat Custom</div></label><label class="block"><input type="radio" name="service" value="Mixing & Mastering" class="sr-only"><div class="svc-chip font-english">Mixing & Mastering</div></label><label class="block"><input type="radio" name="service" value="Full Production" class="sr-only"><div class="svc-chip font-english">Full Production</div></label><label class="block"><input type="radio" name="service" value="SoundBoost Promotion" class="sr-only"><div class="svc-chip font-english">SoundBoost Promotion</div></label></div>
+                </fieldset>
+                <input class="field" id="bkName" placeholder="اسم الفنان" required autocomplete="name">
+                <input class="field" id="bkContact" placeholder="البريد الإلكتروني / رقم الهاتف" required dir="auto">
+                <input class="field" id="bkLink" type="url" placeholder="رابط عمل سابق (اختياري)" dir="ltr">
+                <textarea class="field" id="bkNotes" rows="3" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+                <p id="bkErr" class="text-xs text-red-400 min-h-[1rem]" role="alert"></p>
+                <button type="submit" class="py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-bold"><i class="fab fa-whatsapp ml-1"></i> إرسال عبر WhatsApp</button>
+                <button type="button" id="bkMail" class="py-2.5 rounded-2xl border border-amber-400/40 text-amber-400 text-xs font-bold hidden"><i class="fas fa-envelope ml-1"></i> أو أرسل الطلب بالبريد</button>
+            </form>
+        </div>
+    </div>
 
     <!-- ARTICLE READER MODAL (FULL ARTICLE VIEWER) -->
     <div id="articleModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
@@ -635,6 +793,9 @@
 
     <!-- JavaScript Logic for SPA Navigation, Audio, Sidebar & Modals -->
     <script>
+        // فتح التبويب من الرابط (مثال: index.html#articles)
+        window.addEventListener('DOMContentLoaded', () => { const t = location.hash.slice(1); if (t && document.getElementById('tab-' + t)) switchTab(t); });
+
         // Sidebar Control Logic
         function toggleSidebar() {
             document.getElementById('sidebarDrawer').classList.toggle('open');
@@ -662,33 +823,16 @@
             if (activeNav) activeNav.classList.add('active');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(loadAds, 60);
         }
 
-        // Audio Player Logic
-        function toggleAudio() {
-            const audio = document.getElementById('beatAudio');
-            const playIcon = document.getElementById('playIcon');
-            const visualizer = document.getElementById('waveVisualizer');
-
-            if (audio.paused) {
-                audio.play();
-                playIcon.className = 'fas fa-pause text-xs';
-                visualizer.classList.remove('paused');
-                visualizer.classList.add('playing');
-            } else {
-                audio.pause();
-                playIcon.className = 'fas fa-play text-xs';
-                visualizer.classList.remove('playing');
-                visualizer.classList.add('paused');
-            }
+        // الإعلانات: تُحمَّل فقط عند ظهور التبويب (الإعلان داخل عنصر مخفي يفشل بعرض 0)
+        function loadAds() {
+            document.querySelectorAll('.tab-content.active ins.adsbygoogle:not([data-adsbygoogle-status])').forEach(() => {
+                try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { console.warn('AdSense:', e); }
+            });
         }
-
-        document.getElementById('beatAudio').addEventListener('ended', function() {
-            document.getElementById('playIcon').className = 'fas fa-play text-xs';
-            const visualizer = document.getElementById('waveVisualizer');
-            visualizer.classList.remove('playing');
-            visualizer.classList.add('paused');
-        });
+        window.addEventListener('load', () => setTimeout(loadAds, 100));
 
         // Article Modal Viewer Data & Logic
         const articleData = {
@@ -738,7 +882,7 @@
             modalContent.innerHTML = `
                 <span class="text-amber-400 text-[10px] font-bold uppercase tracking-wider font-english block mb-1">${article.category} • ${article.date}</span>
                 <h2 class="text-xl font-bold text-white mb-3 leading-tight">${article.title}</h2>
-                <img src="${article.img}" class="w-full h-48 object-cover rounded-2xl mb-4 border border-white/10">
+                <img loading="lazy" decoding="async" src="${article.img}" class="w-full h-48 object-cover rounded-2xl mb-4 border border-white/10">
                 <div class="prose prose-invert text-right">
                     ${article.content}
                 </div>
@@ -757,6 +901,94 @@
         function closeArticleModal() {
             document.getElementById('articleModal').classList.add('hidden');
         }
+
+        // ======= v2: Beats + Booking + Newsletter =======
+        // ⚠️ استبدل روابط الصوت والأغلفة بملفاتك الحقيقية (mp3). الرابط الحالي عينة تجريبية.
+        const BEATS = [
+            { title: 'Dark Trap Demo', meta: '140 BPM • Trap', cover: 'img.png', src: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a221f3.mp3?filename=trap-beat-10582.mp3' },
+            { title: 'Algiers Drill',  meta: '142 BPM • Drill', cover: 'img.png', src: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a221f3.mp3?filename=trap-beat-10582.mp3#2' },
+            { title: 'Golden Hour',    meta: '130 BPM • Melodic Trap', cover: 'img.png', src: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a221f3.mp3?filename=trap-beat-10582.mp3#3' }
+        ];
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const abs = u => new URL(u, location.href).href;
+        document.getElementById('beatList').innerHTML = BEATS.map(b => `
+            <div class="beat-row flex items-center gap-3 p-2 rounded-xl border border-white/10 transition-all" data-src="${esc(abs(b.src))}">
+                <img loading="lazy" decoding="async" src="${esc(b.cover)}" alt="" width="40" height="40" class="w-10 h-10 rounded-lg object-cover border border-amber-400/30" onerror="this.src='https://placehold.co/80x80/111/FFD700?text=GP'">
+                <div class="flex-1 min-w-0 text-right">
+                    <h3 class="text-xs font-bold text-white truncate font-english">${esc(b.title)}</h3>
+                    <p class="text-[11px] text-gray-300 font-english">${esc(b.meta)}</p>
+                </div>
+                <button type="button" data-beat-src="${esc(b.src)}" data-beat-title="${esc(b.title)}" data-beat-meta="${esc(b.meta)}" data-beat-cover="${esc(b.cover)}"
+                        class="beat-btn px-3 py-1.5 rounded-xl bg-amber-400/10 border border-amber-400/40 text-amber-400 text-[11px] font-bold hover:bg-amber-400 hover:text-black transition-all">
+                    <i class="fas fa-play ml-1"></i><span>استمع Demo</span>
+                </button>
+            </div>`).join('');
+        // مزامنة حالة الأزرار مع المشغل
+        document.addEventListener('goldplayer:state', e => {
+            const { src, playing } = e.detail;
+            document.querySelectorAll('.beat-row').forEach(row => {
+                const on = src && abs(src) === row.dataset.src;
+                row.classList.toggle('active', !!on);
+                const btn = row.querySelector('.beat-btn');
+                btn.querySelector('i').className = (on && playing) ? 'fas fa-pause ml-1' : 'fas fa-play ml-1';
+                btn.querySelector('span').textContent = (on && playing) ? 'إيقاف' : 'استمع Demo';
+            });
+        });
+
+        // ---- Booking ----
+        const WHATSAPP_NUMBER = '213XXXXXXXXX'; // ⚠️ رقمك بالصيغة الدولية بدون + أو 00 (مثال: 213555123456)
+        const EMAILJS = { service: '', template: '', publicKey: '' }; // اختياري: عبّئها لتفعيل زر الإرسال بالبريد
+        const bm = document.getElementById('bookingModal');
+        function openBooking(service) {
+            if (service) { const r = document.querySelector(`#bookingForm input[value="${service}"]`); if (r) r.checked = true; }
+            bm.classList.add('open'); document.getElementById('bkName').focus();
+        }
+        function closeBooking() { bm.classList.remove('open'); }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBooking(); });
+        if (EMAILJS.service) document.getElementById('bkMail').classList.remove('hidden');
+        function bookingData() {
+            const v = id => document.getElementById(id).value.trim();
+            const d = { service: document.querySelector('#bookingForm input[name=service]:checked').value, name: v('bkName'), contact: v('bkContact'), link: v('bkLink'), notes: v('bkNotes') };
+            const err = document.getElementById('bkErr');
+            if (!d.name || !d.contact) { err.textContent = 'يرجى إدخال اسم الفنان ووسيلة التواصل.'; return null; }
+            err.textContent = ''; return d;
+        }
+        document.getElementById('bookingForm').addEventListener('submit', e => {
+            e.preventDefault(); const d = bookingData(); if (!d) return;
+            const text = `*طلب حجز خدمة - Gold Prod*\n\n🎛 الخدمة: ${d.service}\n👤 الفنان: ${d.name}\n📞 التواصل: ${d.contact}\n🔗 عمل سابق: ${d.link || '—'}\n📝 ملاحظات: ${d.notes || '—'}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+            closeBooking();
+        });
+        document.getElementById('bkMail').addEventListener('click', async () => {
+            const d = bookingData(); if (!d) return;
+            try {
+                const r = await fetch('https://api.emailjs.com/api/v1.0/email/send', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service_id: EMAILJS.service, template_id: EMAILJS.template, user_id: EMAILJS.publicKey, template_params: d }) });
+                if (!r.ok) throw 0;
+                document.getElementById('bkErr').className = 'text-xs text-emerald-400 min-h-[1rem]';
+                document.getElementById('bkErr').textContent = 'تم إرسال طلبك بنجاح ✅';
+            } catch (_) { document.getElementById('bkErr').textContent = 'تعذّر الإرسال، جرّب WhatsApp.'; }
+        });
+
+        // ---- Newsletter ----
+        const NEWSLETTER_ENDPOINT = ''; // مثال: 'https://formspree.io/f/xxxxxxx' (يستقبل POST بحقل email)
+        document.getElementById('nlForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const input = document.getElementById('nlEmail'), msg = document.getElementById('nlMsg'), btn = document.getElementById('nlBtn');
+            const email = input.value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.className = 'text-xs mt-3 text-red-400'; msg.textContent = 'يرجى إدخال بريد إلكتروني صحيح.'; input.focus(); return; }
+            btn.classList.add('loading'); btn.disabled = true; msg.textContent = '';
+            try {
+                if (NEWSLETTER_ENDPOINT) {
+                    const r = await fetch(NEWSLETTER_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ email }) });
+                    if (!r.ok) throw 0;
+                } else { await new Promise(r => setTimeout(r, 700)); console.warn('NEWSLETTER_ENDPOINT غير مضبوط: لم يتم حفظ البريد.'); }
+                btn.classList.remove('loading'); btn.classList.add('done'); btn.querySelector('.lbl').innerHTML = '<i class="fas fa-check"></i> تم'; btn.querySelector('.lbl').style.display = 'inline';
+                msg.className = 'text-xs mt-3 text-emerald-400'; msg.textContent = 'تم اشتراكك بنجاح! سنشعرك فور نزول بيت جديد 🔥'; input.value = '';
+            } catch (_) {
+                btn.classList.remove('loading'); btn.disabled = false; msg.className = 'text-xs mt-3 text-red-400'; msg.textContent = 'حدث خطأ، حاول مجدداً.';
+            }
+        });
     </script>
 </body>
 </html>
