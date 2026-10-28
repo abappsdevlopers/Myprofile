@@ -1,0 +1,524 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0b0d">
+<title>RYLO — Gold Prod</title>
+<style>
+:root{
+  --bg:#0b0b0d;--panel:#151518;--panel2:#1c1c21;
+  --line:#303036;--gold:#d8b35e;--gold2:#f0d58a;
+  --text:#f7f5ef;--muted:#a7a5ac;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(ellipse at 80% 0%,#332718 0,transparent 32%),
+  var(--bg);color:var(--text);
+  font-family:Arial,"Segoe UI",sans-serif;line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+header{
+  position:sticky;top:0;z-index:10;
+  background:#0b0b0deF;backdrop-filter:blur(16px);
+  border-bottom:1px solid #ffffff15;
+}
+nav{display:flex;align-items:center;justify-content:space-between;
+  gap:18px;min-height:72px}
+.logo{font-size:23px;font-weight:900;letter-spacing:2px}
+.logo span,.gold{color:var(--gold)}
+.links{display:flex;gap:20px;color:var(--muted);font-size:14px}
+.links a:hover{color:var(--gold)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:11px 17px;border-radius:11px;border:1px solid var(--line);
+  background:transparent;color:var(--text);font-weight:bold;
+}
+.btn.gold-btn{background:var(--gold);color:#17130a;border-color:var(--gold)}
+.btn:hover{border-color:var(--gold)}
+.lang{background:var(--panel);color:var(--text);
+  border:1px solid var(--line);padding:9px;border-radius:9px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;
+  gap:36px;align-items:center;padding:75px 0 55px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:bold}
+h1{font-size:clamp(42px,6vw,76px);line-height:1.12;
+  letter-spacing:-2px;margin:18px 0}
+h1 span{color:var(--gold)}
+p{color:var(--muted)}
+.hero p{max-width:560px;font-size:17px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.art{
+  min-height:320px;border:1px solid #d8b35e30;border-radius:25px;
+  padding:28px;display:flex;flex-direction:column;justify-content:space-between;
+  overflow:hidden;position:relative;
+  background:linear-gradient(145deg,#382b18,#18181c 60%,#101012);
+}
+.art:before,.art:after{
+  content:"";position:absolute;width:250px;height:250px;border-radius:50%;
+  border:1px solid #d8b35e55;right:-20px;top:20px;
+  box-shadow:0 0 0 20px #d8b35e0b,0 0 0 45px #d8b35e08;
+}
+.art:after{width:150px;height:150px;right:30px;top:70px}
+.art strong{position:relative;z-index:1;font-size:clamp(65px,10vw,110px);
+  letter-spacing:-8px;line-height:1}
+.art small{position:relative;z-index:1;color:var(--gold);letter-spacing:3px}
+.wave{display:flex;align-items:center;gap:5px;height:55px;z-index:1}
+.wave i{width:5px;height:var(--h);border-radius:9px;background:var(--gold)}
+section{padding:40px 0;scroll-margin-top:85px}
+.heading{display:flex;align-items:end;justify-content:space-between;
+  gap:16px;margin-bottom:22px}
+h2{font-size:clamp(26px,4vw,38px);margin:5px 0}
+.heading p{margin:0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.filter{border:1px solid var(--line);background:var(--panel);
+  color:var(--muted);border-radius:30px;padding:8px 16px}
+.filter.active{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{min-width:0;padding:19px;background:linear-gradient(145deg,#19191d,#121215);
+  border:1px solid var(--line);border-radius:18px}
+.card:hover{border-color:#806a39}
+.cover{aspect-ratio:16/9;border-radius:13px;margin-bottom:15px;
+  background:linear-gradient(140deg,#49371d,#202026 65%,#111);
+  display:grid;place-items:center;position:relative;overflow:hidden}
+.cover:before{content:"";width:130px;height:130px;border:1px solid #d8b35e66;
+  border-radius:50%;box-shadow:0 0 0 20px #d8b35e0a}
+.cover button{position:absolute;border:1px solid #d8b35e88;
+  border-radius:50%;width:48px;height:48px;background:#0b0b0ddd;color:var(--gold)}
+.tag{display:inline-block;border:1px solid #d8b35e50;
+  color:var(--gold);border-radius:30px;padding:2px 10px;font-size:12px}
+.card h3{margin:10px 0 2px}
+.meta,.card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.meta{font-size:13px;color:var(--muted)}
+.card-foot{margin-top:16px}
+.price{color:var(--gold);font-weight:bold;font-size:19px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;color:var(--muted);font-size:14px;margin:12px 0 6px}
+input[type=text],input[type=email],select.field,input.field{
+  width:100%;padding:12px;border:1px solid var(--line);
+  border-radius:10px;background:#0e0e11;color:var(--text);outline:none
+}
+input:focus,select:focus{border-color:var(--gold)}
+.service{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--text)}
+.service input{accent-color:var(--gold);width:17px;height:17px}
+.result{margin:18px 0;padding:18px;border:1px solid #d8b35e40;
+  background:#d8b35e0b;border-radius:14px}
+.result strong{font-size:30px;color:var(--gold)}
+.note{font-size:12px;color:var(--muted)}
+audio{width:100%;margin:12px 0;accent-color:var(--gold)}
+.video{aspect-ratio:16/9;background:#080808;border-radius:12px;overflow:hidden}
+.video iframe{width:100%;height:100%;border:0}
+.newsletter{display:flex;align-items:center;justify-content:space-between;
+  gap:22px;padding:27px;border:1px solid #d8b35e40;border-radius:20px;
+  background:linear-gradient(120deg,#332819,#171719)}
+.newsletter form{display:flex;gap:8px;min-width:45%}
+.newsletter input{min-width:0;flex:1}
+footer{border-top:1px solid var(--line);padding:28px 0 110px;
+  color:var(--muted);font-size:13px}
+.toast{display:none;position:fixed;top:85px;left:18px;z-index:40;
+  padding:13px 18px;background:#202024;border:1px solid var(--gold);
+  border-radius:12px;max-width:90vw}
+.toast.show{display:block}
+.player{position:fixed;bottom:0;left:0;right:0;z-index:20;
+  background:#131316f5;backdrop-filter:blur(16px);
+  border-top:1px solid #d8b35e50;padding:10px 0}
+.player-inner{display:grid;grid-template-columns:1fr 1.2fr auto;
+  align-items:center;gap:18px}
+.track{display:flex;align-items:center;gap:10px;min-width:0}
+.track-art{width:42px;height:42px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#c9a04b,#27221a);
+  color:#17130a;border-radius:9px;font-weight:900}
+.track div:last-child{min-width:0}
+.track b,.track small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track small{color:var(--muted);font-size:12px}
+.controls{display:flex;align-items:center;gap:12px}
+.controls button{background:none;border:0;color:var(--text);font-size:17px}
+.controls input{min-width:0;width:100%;accent-color:var(--gold)}
+#time{font-size:12px;color:var(--muted)}
+@media(max-width:800px){
+ .links{display:none}.hero{grid-template-columns:1fr;padding-top:45px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .two{grid-template-columns:1fr}.newsletter{align-items:stretch;flex-direction:column}
+ .player-inner{grid-template-columns:1fr auto}.controls{grid-column:1/-1;grid-row:2}
+ #time{display:none}
+}
+@media(max-width:520px){
+ .wrap{width:calc(100% - 24px)}.grid{grid-template-columns:1fr}
+ .art{min-height:230px}h1{font-size:46px}.heading{align-items:start;flex-direction:column}
+ .newsletter form{min-width:0;flex-direction:column}
+ .newsletter form .btn{width:100%}.actions .btn{flex:1}
+ .player-inner{gap:8px}footer{padding-bottom:125px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="wrap">
+    <a class="logo" href="#home">GOLD <span>PROD</span></a>
+    <div class="links">
+      <a href="#beats" data-t="navBeats">البيتات</a>
+      <a href="#services" data-t="navServices">الخدمات</a>
+      <a href="#compare" data-t="navCompare">المقارنة</a>
+      <a href="#videos" data-t="navVideos">الفيديوهات</a>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <select id="language" class="lang" aria-label="Language">
+        <option value="ar">العربية</option>
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+      <a href="#beats" class="btn gold-btn" data-t="browse">استكشف</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+<section class="hero" id="home">
+  <div>
+    <div class="eyebrow">RYLO / GOLD PROD</div>
+    <h1 data-t="heroTitle">صوتك يستحق<br><span>مستوى أعلى.</span></h1>
+    <p data-t="heroText">بيتات أصلية وخدمات إنتاج صوتي تمنح مشروعك هوية واضحة وصوتًا احترافيًا.</p>
+    <div class="actions">
+      <a class="btn gold-btn" href="#beats" data-t="explore">اكتشف البيتات ↙</a>
+      <a class="btn" href="#services" data-t="calculate">احسب التكلفة</a>
+    </div>
+  </div>
+  <div class="art">
+    <small>GOLD PROD PRESENTS</small>
+    <strong>RYLO<span class="gold">.</span></strong>
+    <div class="wave" id="wave"></div>
+    <small>YOUR SOUND. YOUR IDENTITY.</small>
+  </div>
+</section>
+
+<section id="beats">
+  <div class="heading">
+    <div><div class="eyebrow">THE BEAT CATALOG</div>
+      <h2 data-t="beatsTitle">اختر الصوت الذي يشبهك</h2>
+      <p data-t="beatsSub">تصفّح حسب الستايل واستمع قبل الاختيار.</p>
+    </div>
+    <span class="tag">ORIGINAL PRODUCTION</span>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter active" data-filter="all" data-t="all">الكل</button>
+    <button class="filter" data-filter="trap">Trap</button>
+    <button class="filter" data-filter="drill">Drill</button>
+    <button class="filter" data-filter="melodic">Melodic</button>
+    <button class="filter" data-filter="afro">Afro</button>
+  </div>
+  <div class="grid" id="beatGrid"></div>
+</section>
+
+<section id="services">
+  <div class="heading"><div><div class="eyebrow">BUILD YOUR PROJECT</div>
+    <h2 data-t="servicesTitle">حاسبة الخدمات</h2>
+    <p data-t="servicesSub">اختر الخدمات وشاهد تقدير السعر مباشرة.</p>
+  </div></div>
+  <div class="two">
+    <div class="card">
+      <h3 data-t="chooseServices">اختر الخدمات</h3>
+      <label class="service"><input type="checkbox" value="beat" checked> <span data-t="svcBeat">ترخيص Beat — 2500 DZD</span></label>
+      <label class="service"><input type="checkbox" value="mix"> <span data-t="svcMix">مكس — 5000 DZD</span></label>
+      <label class="service"><input type="checkbox" value="master"> <span data-t="svcMaster">ماستر — 2500 DZD</span></label>
+      <label class="service"><input type="checkbox" value="record"> <span data-t="svcRecord">تسجيل صوت — 3500 DZD</span></label>
+      <label data-t="currency">عملة العرض</label>
+      <select id="currency" class="field">
+        <option value="DZD">DZD — Algerian dinar</option>
+        <option value="EUR">EUR — Euro</option>
+        <option value="USD">USD — US dollar</option>
+      </select>
+    </div>
+    <div class="card">
+      <div class="eyebrow" data-t="estimate">YOUR ESTIMATE</div>
+      <div class="result"><span data-t="total">المجموع التقديري</span><br>
+        <strong id="total">2,500 DZD</strong>
+        <div class="note" data-t="estimateNote">الأسعار تقديرية وقابلة للتغيير.</div>
+      </div>
+      <label data-t="projectName">اسم المشروع (اختياري)</label>
+      <input id="project" type="text" placeholder="Artist / Project">
+      <button class="btn gold-btn" id="order" style="width:100%;margin-top:16px" data-t="order">اطلب عبر واتساب</button>
+      <p class="note" data-t="priceNote">يتم تأكيد السعر النهائي بعد مراجعة تفاصيل الطلب.</p>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="heading"><div><div class="eyebrow">A / B LISTENING</div>
+    <h2 data-t="compareTitle">قبل المكس وبعده</h2>
+    <p data-t="compareSub">استمع إلى الملف الخام والنسخة النهائية.</p>
+  </div></div>
+  <div class="two">
+    <div class="card"><span class="tag">RAW / BEFORE</span><h3 data-t="rawTitle">الصوت الخام</h3>
+      <audio id="raw" controls preload="none"></audio>
+      <p class="note" data-t="rawNote">أضف رابط ملفك الصوتي في الإعدادات.</p>
+    </div>
+    <div class="card"><span class="tag">MIXED / AFTER</span><h3 data-t="mixedTitle">بعد المكس والماستر</h3>
+      <audio id="mixed" controls preload="none"></audio>
+      <p class="note" data-t="mixedNote">أضف رابط النسخة النهائية في الإعدادات.</p>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="heading"><div><div class="eyebrow">WATCH THE PROCESS</div>
+    <h2 data-t="videosTitle">من الاستوديو إلى النتيجة</h2>
+    <p data-t="videosSub">فيديوهات الإنتاج والأعمال الجديدة.</p>
+  </div></div>
+  <div class="grid" id="videoGrid"></div>
+</section>
+
+<section>
+  <div class="newsletter">
+    <div><div class="eyebrow">FREE DOWNLOAD</div>
+      <h2 data-t="freeTitle">بيت مجاني لأول تجربة</h2>
+      <p data-t="freeText">أدخل بريدك للحصول على رابط التحميل عند تفعيل خدمة البريد.</p>
+    </div>
+    <form id="emailForm">
+      <input type="email" id="email" required placeholder="you@example.com" aria-label="Email">
+      <button class="btn gold-btn" type="submit" data-t="getFree">احصل على البيت</button>
+    </form>
+  </div>
+  <p class="note" data-t="emailNote">يلزم ربط نموذج البريد بخدمة إرسال قبل استخدامه.</p>
+</section>
+</main>
+
+<footer><div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+  <span>© <span id="year"></span> GOLD PROD / RYLO</span>
+  <span data-t="footer">صناعة صوتية مستقلة • جودة تبدأ من التفاصيل</span>
+</div></footer>
+
+<div class="player"><div class="wrap player-inner">
+  <div class="track"><div class="track-art">R</div><div>
+    <b id="trackName">RYLO — Select a beat</b><small>GOLD PROD • Preview Player</small>
+  </div></div>
+  <div class="controls">
+    <button id="prev" aria-label="Previous">⏮</button>
+    <button id="play" aria-label="Play/Pause">▶</button>
+    <button id="next" aria-label="Next">⏭</button>
+    <input id="seek" type="range" min="0" max="100" value="0" aria-label="Seek">
+  </div>
+  <span id="time">0:00 / 0:00</span>
+  <audio id="audio" preload="none"></audio>
+</div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* إعدادات الصفحة: استبدل القيم التجريبية ببياناتك الحقيقية. */
+const CONFIG = {
+  whatsappNumber: "", // مثال الجزائر: 213XXXXXXXXX
+  newsletterEndpoint: "",
+  freeBeatUrl: "",
+  rawAudioUrl: "",
+  mixedAudioUrl: "",
+  videos: [], // مثال: [{id:"YOUTUBE_VIDEO_ID", title:"Studio session"}]
+  rates: { DZD:1, EUR:0.0068, USD:0.0074 },
+  beats: [
+    {title:"MIDNIGHT RUN",genre:"trap",bpm:142,key:"F minor",price:2500,audioUrl:""},
+    {title:"COLD STREETS",genre:"drill",bpm:145,key:"C minor",price:3000,audioUrl:""},
+    {title:"AFTERGLOW",genre:"melodic",bpm:120,key:"A minor",price:2500,audioUrl:""},
+    {title:"DESERT LIGHTS",genre:"afro",bpm:108,key:"G minor",price:2800,audioUrl:""},
+    {title:"NO SIGNAL",genre:"trap",bpm:138,key:"D minor",price:2500,audioUrl:""},
+    {title:"NIGHT SHIFT",genre:"drill",bpm:150,key:"F minor",price:3000,audioUrl:""}
+  ]
+};
+
+const TEXT = {
+ ar:{
+  navBeats:"البيتات",navServices:"الخدمات",navCompare:"المقارنة",navVideos:"الفيديوهات",browse:"استكشف",
+  heroTitle:'صوتك يستحق<br><span>مستوى أعلى.</span>',heroText:"بيتات أصلية وخدمات إنتاج صوتي تمنح مشروعك هوية واضحة وصوتًا احترافيًا.",
+  explore:"اكتشف البيتات ↙",calculate:"احسب التكلفة",beatsTitle:"اختر الصوت الذي يشبهك",beatsSub:"تصفّح حسب الستايل واستمع قبل الاختيار.",all:"الكل",
+  servicesTitle:"حاسبة الخدمات",servicesSub:"اختر الخدمات وشاهد تقدير السعر مباشرة.",chooseServices:"اختر الخدمات",
+  svcBeat:"ترخيص Beat — 2500 DZD",svcMix:"مكس — 5000 DZD",svcMaster:"ماستر — 2500 DZD",svcRecord:"تسجيل صوت — 3500 DZD",
+  currency:"عملة العرض",estimate:"تقدير مشروعك",total:"المجموع التقديري",estimateNote:"الأسعار تقديرية وقابلة للتغيير.",
+  projectName:"اسم المشروع (اختياري)",order:"اطلب عبر واتساب",priceNote:"يتم تأكيد السعر النهائي بعد مراجعة تفاصيل الطلب.",
+  compareTitle:"قبل المكس وبعده",compareSub:"استمع إلى الملف الخام والنسخة النهائية.",rawTitle:"الصوت الخام",
+  rawNote:"أضف رابط ملفك الصوتي في الإعدادات.",mixedTitle:"بعد المكس والماستر",mixedNote:"أضف رابط النسخة النهائية في الإعدادات.",
+  videosTitle:"من الاستوديو إلى النتيجة",videosSub:"فيديوهات الإنتاج والأعمال الجديدة.",
+  freeTitle:"بيت مجاني لأول تجربة",freeText:"أدخل بريدك للحصول على رابط التحميل عند تفعيل خدمة البريد.",
+  getFree:"احصل على البيت",emailNote:"يلزم ربط نموذج البريد بخدمة إرسال قبل استخدامه.",
+  footer:"صناعة صوتية مستقلة • جودة تبدأ من التفاصيل",
+  listen:"استمع",noAudio:"أضف رابط المعاينة الصوتية لهذا الـ Beat في CONFIG.",
+  noWhatsApp:"أضف رقم واتساب الدولي في CONFIG أولًا.",noEmail:"نموذج البريد غير مفعّل بعد.",
+  noVideos:"أضف معرّفات YouTube في CONFIG.",emailError:"تعذّر إرسال الطلب. تحقق من إعدادات خدمة البريد."
+ },
+ fr:{
+  navBeats:"Beats",navServices:"Services",navCompare:"Comparaison",navVideos:"Vidéos",browse:"Explorer",
+  heroTitle:'Votre son mérite<br><span>un niveau supérieur.</span>',heroText:"Des beats originaux et des services audio pour donner une identité professionnelle à votre projet.",
+  explore:"Découvrir les beats ↙",calculate:"Estimer le projet",beatsTitle:"Trouvez votre signature sonore",beatsSub:"Filtrez par style et écoutez avant de choisir.",all:"Tout",
+  servicesTitle:"Calculateur de services",servicesSub:"Choisissez vos services et estimez le prix.",chooseServices:"Choisir les services",
+  svcBeat:"Licence beat — 2500 DZD",svcMix:"Mixage — 5000 DZD",svcMaster:"Mastering — 2500 DZD",svcRecord:"Enregistrement — 3500 DZD",
+  currency:"Devise",estimate:"Estimation du projet",total:"Total estimé",estimateNote:"Prix indicatifs.",
+  projectName:"Nom du projet (facultatif)",order:"Commander sur WhatsApp",priceNote:"Le prix final sera confirmé après examen du projet.",
+  compareTitle:"Avant / après mixage",compareSub:"Écoutez le fichier brut et la version finale.",rawTitle:"Audio brut",
+  rawNote:"Ajoutez l'URL audio dans la configuration.",mixedTitle:"Après mixage et mastering",mixedNote:"Ajoutez l'URL finale dans la configuration.",
+  videosTitle:"Du studio au résultat",videosSub:"Vidéos de production et nouveaux projets.",
+  freeTitle:"Un beat gratuit pour commencer",freeText:"Laissez votre e-mail une fois le service activé.",
+  getFree:"Obtenir le beat",emailNote:"Connectez un service e-mail avant utilisation.",
+  footer:"Production indépendante • La qualité est dans les détails",
+  listen:"Écouter",noAudio:"Ajoutez une URL audio dans CONFIG.",noWhatsApp:"Ajoutez votre numéro WhatsApp dans CONFIG.",
+  noEmail:"Le formulaire e-mail n'est pas encore connecté.",noVideos:"Ajoutez des identifiants YouTube dans CONFIG.",
+  emailError:"Échec de l'envoi. Vérifiez la configuration e-mail."
+ },
+ en:{
+  navBeats:"Beats",navServices:"Services",navCompare:"Comparison",navVideos:"Videos",browse:"Explore",
+  heroTitle:'Your sound deserves<br><span>a higher level.</span>',heroText:"Original beats and audio production services built around your sound and identity.",
+  explore:"Explore beats ↙",calculate:"Estimate project",beatsTitle:"Find your sound",beatsSub:"Filter by style and listen before you choose.",all:"All",
+  servicesTitle:"Service calculator",servicesSub:"Choose your services and get an estimate.",chooseServices:"Choose services",
+  svcBeat:"Beat license — 2500 DZD",svcMix:"Mixing — 5000 DZD",svcMaster:"Mastering — 2500 DZD",svcRecord:"Vocal recording — 3500 DZD",
+  currency:"Display currency",estimate:"PROJECT ESTIMATE",total:"Estimated total",estimateNote:"Prices are indicative.",
+  projectName:"Project name (optional)",order:"Order on WhatsApp",priceNote:"Final pricing is confirmed after project review.",
+  compareTitle:"Before / after mix",compareSub:"Listen to raw audio and the final version.",rawTitle:"Raw audio",
+  rawNote:"Set your raw audio URL in CONFIG.",mixedTitle:"After mixing & mastering",mixedNote:"Set your final audio URL in CONFIG.",
+  videosTitle:"From studio to final result",videosSub:"Production videos and recent work.",
+  freeTitle:"Get a free beat",freeText:"Leave your email once the email service is connected.",
+  getFree:"Get the beat",emailNote:"Connect an email service before using this form.",
+  footer:"Independent sound • Quality lives in the details",
+  listen:"Listen",noAudio:"Add a preview URL in CONFIG.",noWhatsApp:"Add your WhatsApp number to CONFIG first.",
+  noEmail:"The email form is not connected yet.",noVideos:"Add YouTube IDs in CONFIG.",
+  emailError:"Submission failed. Check your email endpoint."
+ }
+};
+
+let lang="ar",filter="all",current=0;
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+function say(k){return TEXT[lang][k]||TEXT.ar[k]||k}
+function toast(text){
+ const el=$("#toast");el.textContent=text;el.classList.add("show");
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.classList.remove("show"),3200);
+}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function price(n){
+ const c=$("#currency").value;
+ return new Intl.NumberFormat(lang==="en"?"en-US":lang==="fr"?"fr-FR":"fr-DZ",{
+  style:"currency",currency:c,maximumFractionDigits:c==="DZD"?0:2
+ }).format(n*(CONFIG.rates[c]||1));
+}
+function renderBeats(){
+ const grid=$("#beatGrid");grid.innerHTML="";
+ const items=CONFIG.beats.filter(b=>filter==="all"||b.genre===filter);
+ items.forEach((b)=>{
+  const idx=CONFIG.beats.indexOf(b),el=document.createElement("article");
+  el.className="card";
+  el.innerHTML=`<div class="cover"><button aria-label="Play preview">▶</button></div>
+  <span class="tag">${safe(b.genre.toUpperCase())}</span>
+  <h3>${safe(b.title)}</h3>
+  <div class="meta"><span>${b.bpm} BPM</span><span>${safe(b.key)}</span></div>
+  <div class="card-foot"><span class="price">${price(b.price)}</span>
+  <button class="btn listen">${say("listen")} ↗</button></div>`;
+  el.querySelector(".cover button").onclick=el.querySelector(".listen").onclick=()=>playBeat(idx);
+  grid.appendChild(el);
+ });
+ if(!items.length)grid.innerHTML='<div class="card">No beats found.</div>';
+}
+function playBeat(i){
+ current=i;const b=CONFIG.beats[i],a=$("#audio");
+ $("#trackName").textContent=b.title;
+ if(!b.audioUrl){a.pause();$("#play").textContent="▶";toast(say("noAudio"));return}
+ if(a.src!==new URL(b.audioUrl,location.href).href){a.src=b.audioUrl;a.load()}
+ a.play().then(()=>$("#play").textContent="Ⅱ").catch(()=>toast(say("noAudio")));
+}
+function total(){
+ const base={beat:2500,mix:5000,master:2500,record:3500};
+ const sum=$$(".service input:checked").reduce((n,x)=>n+(base[x.value]||0),0);
+ $("#total").textContent=price(sum);
+}
+function renderVideos(){
+ const grid=$("#videoGrid");grid.innerHTML="";
+ if(!CONFIG.videos.length){
+  grid.innerHTML=`<div class="card" style="grid-column:1/-1">${say("noVideos")}</div>`;return;
+ }
+ CONFIG.videos.slice(0,3).forEach(v=>{
+  const id=typeof v==="string"?v:v.id;
+  const title=typeof v==="string"?"RYLO / GOLD PROD":(v.title||"RYLO / GOLD PROD");
+  const el=document.createElement("article");el.className="card";
+  el.innerHTML=`<div class="video"><iframe loading="lazy"
+  src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}"
+  title="${safe(title)}" allowfullscreen></iframe></div><h3>${safe(title)}</h3>`;
+  grid.append(el);
+ });
+}
+function applyLanguage(){
+ document.documentElement.lang=lang;
+ document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ $$("[data-t]").forEach(el=>{
+  const k=el.dataset.t;if(TEXT[lang][k])el.innerHTML=TEXT[lang][k];
+ });
+ renderBeats();renderVideos();total();
+}
+$("#language").onchange=e=>{lang=e.target.value;applyLanguage()};
+$("#filters").onclick=e=>{
+ const b=e.target.closest("[data-filter]");if(!b)return;
+ filter=b.dataset.filter;
+ $$(".filter").forEach(x=>x.classList.toggle("active",x===b));
+ renderBeats();
+};
+$$(".service input").forEach(x=>x.onchange=total);
+$("#currency").onchange=()=>{renderBeats();total()};
+$("#play").onclick=()=>{
+ const a=$("#audio");
+ if(!a.src){playBeat(current);return}
+ if(a.paused)a.play().then(()=>$("#play").textContent="Ⅱ");
+ else{a.pause();$("#play").textContent="▶"}
+};
+$("#prev").onclick=()=>playBeat((current-1+CONFIG.beats.length)%CONFIG.beats.length);
+$("#next").onclick=()=>playBeat((current+1)%CONFIG.beats.length);
+function clock(n){return `${Math.floor(n/60)}:${String(Math.floor(n%60)).padStart(2,"0")}`}
+$("#audio").ontimeupdate=()=>{
+ const a=$("#audio");
+ $("#seek").value=a.duration?a.currentTime/a.duration*100:0;
+ $("#time").textContent=`${clock(a.currentTime||0)} / ${clock(a.duration||0)}`;
+};
+$("#audio").onended=()=>$("#play").textContent="▶";
+$("#seek").oninput=e=>{
+ const a=$("#audio");if(a.duration)a.currentTime=a.duration*(+e.target.value/100);
+};
+$("#order").onclick=()=>{
+ if(!CONFIG.whatsappNumber){toast(say("noWhatsApp"));return}
+ const services=$$(".service input:checked").map(x=>x.parentElement.innerText.trim()).join(", ");
+ const message=`Gold Prod / RYLO order\nProject: ${$("#project").value||"Not specified"}\nServices: ${services}\nEstimate: ${$("#total").textContent}`;
+ const url=`https://wa.me/${CONFIG.whatsappNumber.replace(/\D/g,"")}?text=${encodeURIComponent(message)}`;
+ window.open(url,"_blank","noopener");
+};
+$("#emailForm").onsubmit=async e=>{
+ e.preventDefault();
+ if(!CONFIG.newsletterEndpoint){toast(say("noEmail"));return}
+ try{
+  const res=await fetch(CONFIG.newsletterEndpoint,{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({email:$("#email").value})
+  });
+  if(!res.ok)throw Error("Request failed");
+  toast("OK");
+  if(CONFIG.freeBeatUrl)window.open(CONFIG.freeBeatUrl,"_blank","noopener");
+  e.target.reset();
+ }catch{toast(say("emailError"))}
+};
+$("#year").textContent=new Date().getFullYear();
+for(let i=0;i<36;i++){
+ const bar=document.createElement("i");
+ bar.style.setProperty("--h",`${10+Math.abs(Math.sin(i*.72))*40}px`);
+ $("#wave").append(bar);
+}
+$("#raw").src=CONFIG.rawAudioUrl;
+$("#mixed").src=CONFIG.mixedAudioUrl;
+renderBeats();renderVideos();total();
+
+/* تحديث مرجعي تقريبي لليورو والدولار؛ الأسعار ليست عرض دفع نهائيًا. */
+fetch("https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD")
+ .then(r=>{if(!r.ok)throw Error();return r.json()})
+ .then(d=>{
+  if(d.rates&&d.rates.USD){
+   CONFIG.rates.USD=d.rates.USD*CONFIG.rates.EUR;
+   renderBeats();total();
+  }
+ }).catch(()=>{});
+</script>
+</body>
+</html>
